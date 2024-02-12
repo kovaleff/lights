@@ -20,22 +20,19 @@
             crossorigin="anonymous"></script>
     </head>
     <body class="antialiased">
-        <div id="app" class="flex align-center justify-center">
-            <div id="field" class="flex">
-                <div class="lights flex flex-column">
-                    <div class="red light"></div>
-                    <div class="yellow light" ></div>
-                    <div class="green light"></div>
-                </div>
-                <div class="button-inside flex align-center justify-center flex-column">
-                    <div class="m1"><button class="button"><b>Поехали!</b></button></div>
-                    <div id="clickedMess"></div>
-                </div>
 
-            </div>
+        <div class="container message-list">
+            <div><a href="{{route('home')}}">Снова:</a></div>
+            <h1>Результаты:</h1>
+            @foreach($messages as $message)
+                <div class="flex message-raw">
+                    <div class="date">{{$message->created_at->format('d-m-Y H:i:s')}}</div>
+                    <div class="icon"><img src="{{$message->messageType->type == 'fail' ? '/images/thumb-down.png' : '/images/thumbs-up.png' }}" alt=""></div>
+                    <div class="mess">{{$message->messageType->title}}</div>
+                </div>
+            @endforeach
+            <div class="m-auto">{{ $messages->links() }}</div>
         </div>
-        <div class="flex m1">
-            <a href="{{route('messages')}}" class="m-auto">Результаты</a>
-        </div>
+
     </body>
 </html>
